@@ -25,6 +25,11 @@ init(State) ->
 
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
+    application:ensure_all_started(gproc),
+    metric_utils:init_metrics(),
+    butler_setup:initialize_all_caches(),
+    order_fulfilment_sup:initialize_simple_caches(),
+    butler_setup:init_database_from_model_list(models:all()),
     {ok, State}.
 
 -spec format_error(any()) ->  iolist().
