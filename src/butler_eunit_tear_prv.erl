@@ -1,4 +1,4 @@
--module(butler_eunit_prv).
+-module(butler_eunit_tear_prv).
 
 -export([init/1, do/1, format_error/1]).
 
