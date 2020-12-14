@@ -27,7 +27,7 @@ init(State) ->
 
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
-    os:cmd("rm -rf Mnesia.nonode@nohost"),
+    os:cmd("rm -rf Mnesia.butler_server.test"),
     application:set_env(mnesia, dir, "Mnesia.butler_server.test"),
     application:ensure_all_started(gproc),
     metric_utils:init_metrics(),

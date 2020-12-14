@@ -30,6 +30,7 @@ do(State) ->
     application:stop(mnesia),
     application:stop(boss_db),
     application:stop(gproc),
+    os:cmd("rm -rf Mnesia.butler_server.test"),
     {ok, State}.
 
 -spec format_error(any()) ->  iolist().
