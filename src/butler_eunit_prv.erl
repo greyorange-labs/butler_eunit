@@ -3,6 +3,7 @@
 -export([init/1, do/1, format_error/1]).
 
 -define(PROVIDER, eunit).
+-define(NAMESPACE, butler_eunit).
 -define(DEPS, [app_discovery]).
 
 %% ===================================================================
@@ -13,6 +14,7 @@ init(State) ->
     Provider = providers:create([
             {name, ?PROVIDER},            % The 'user friendly' name of the task
             {module, ?MODULE},            % The module implementation of the task
+            {namespace, ?NAMESPACE},
             {bare, true},                 % The task can be run by the user, always true
             {deps, ?DEPS},                % The list of dependencies
             {example, "rebar3 butler_eunit"}, % How to use the plugin
