@@ -34,6 +34,8 @@ do(State) ->
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
     butler_setup:init_database_from_model_list(models:all()),
+    application:load(butler_server),
+    application:load(mhs),
     {ok, State}.
 
 -spec format_error(any()) ->  iolist().
