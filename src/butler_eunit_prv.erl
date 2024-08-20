@@ -34,6 +34,8 @@ do(State) ->
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
     db_setup:init_databases(models:all()),
+    bsh_global_data:ensure_advance_logging_record(),
+    bsh_sysmon:init_cache(),
     {ok, State}.
 
 -spec format_error(any()) ->  iolist().
