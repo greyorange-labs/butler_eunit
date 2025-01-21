@@ -34,12 +34,13 @@ do(State) ->
     metric_utils:init_metrics(),
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
+    % application:set_env(mnesia_migrate, verbose, false),
+    % application:set_env(erl_migrate, verbose, false),
     %% 1. Runs old migrations
     io:format("Running Base migrations..........~n"),
     db_setup:init_databases([]),
     Apps = application:get_env(butler_server, x_runtime_apps, [gmc, non_gmc]),
-    application:set_env(mnesia_migrate, verbose, false),
-    application:set_env(erl_migrate, verbose, false),
+    io:format("Apps=~p........~n", [Apps]),
     %% 2. Runs `GMC` migrations
     io:format("Running GMC migrations..........~n"),
     case lists:member(gmc, Apps) of
