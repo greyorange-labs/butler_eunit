@@ -30,7 +30,7 @@ do(State) ->
     io:format("~s~n", [color:p("========================= [ Eunit: Pre setup start ] =========================", [blue])]),
     {ok, FilePath} = file:get_cwd(),
     DataDir = application:get_env(butler_server, data_dir, "."),
-    MnesiaDir = filename:join([FilePath, DataDir, "Mnesia." ++ atom_to_list(Node)]),
+    MnesiaDir = filename:join([FilePath, DataDir, "Mnesia." ++ atom_to_list(node())]),
     Cmd = "rm -rf " ++ MnesiaDir,
     os:cmd(Cmd),
     application:ensure_all_started(gproc),
