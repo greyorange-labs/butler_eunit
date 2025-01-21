@@ -34,23 +34,17 @@ do(State) ->
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
     %% 1. Runs old migrations
-    db_setup:init_databases(models:all_old()),
+    db_setup:init_databases([]),
     Apps = application:get_env(butler_server, x_runtime_apps, [gmc, non_gmc]),
     %% 2. Runs `GMC` migrations
     case lists:member(gmc, Apps) of
-        true ->
-            ok = gmc_db_setup:migrate_and_check_models(),
-            ok = gmc_db_setup:run_cleanup_migrations();
-        false ->
-            ok
+        true -> ok = gmc_db_setup:init_migrations();
+        false -> ok
     end,
     %% 3. Runs `GMR` migrations
     case lists:member(non_gmc, Apps) of
-        true ->
-            ok = gmr_db_setup:migrate_and_check_models(),
-            ok = gmr_db_setup:run_cleanup_migrations();
-        false ->
-            ok
+        true -> ok = gmr_db_setup:init_migrations();
+        false -> ok
     end,
     bsh_global_data:ensure_advance_logging_record(),
     bsh_sysmon:init_cache(),
