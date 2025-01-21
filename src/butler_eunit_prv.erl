@@ -34,7 +34,7 @@ do(State) ->
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
     %% 1. Runs old migrations
-    db_setup:init_databases(models:all()),
+    db_setup:init_databases(models:all_old()),
     Apps = application:get_env(butler_server, x_runtime_apps, [gmc, non_gmc]),
     %% 2. Runs `GMC` migrations
     case lists:member(gmc, Apps) of
