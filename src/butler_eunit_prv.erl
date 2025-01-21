@@ -38,7 +38,7 @@ do(State) ->
     butler_setup:initialize_all_caches(),
     order_fulfilment_sup:initialize_simple_caches(),
     Verbose =  "1" =:= os:getenv("DIAGNOSTIC"),
-    io:format("Verbose = ~p~n"),
+    io:format("Verbose = ~p~n", [Verbose]),
     application:set_env(mnesia_migrate, verbose, Verbose),
     application:set_env(erl_migrate, verbose, Verbose),      
     %% 1. Runs old migrations
