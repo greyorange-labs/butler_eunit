@@ -28,8 +28,11 @@ init(State) ->
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
     io:format("~s~n", [color:p("========================= [ Eunit: Pre setup start ] =========================", [blue])]),
-    os:cmd("rm -rf Mnesia.butler_server.test"),
-    application:set_env(mnesia, dir, "Mnesia.butler_server.test"),
+    {ok, FilePath} = file:get_cwd(),
+    DataDir = application:get_env(butler_server, data_dir, "."),
+    MnesiaDir = filename:join([FilePath, DataDir, "Mnesia." ++ atom_to_list(Node)]),
+    Cmd = "rm -rf " ++ MnesiaDir,
+    os:cmd(Cmd),
     application:ensure_all_started(gproc),
     metric_utils:init_metrics(),
     butler_setup:initialize_all_caches(),
