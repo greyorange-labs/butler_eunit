@@ -1,4 +1,4 @@
--module(butler_eunit_prv).
+;yy-module(butler_eunit_prv).
 
 -export([init/1, do/1, format_error/1]).
 
@@ -36,6 +36,8 @@ do(State) ->
     %% 1. Runs old migrations
     db_setup:init_databases([]),
     Apps = application:get_env(butler_server, x_runtime_apps, [gmc, non_gmc]),
+    application:set_env(mnesia_migrate, verbose, false),
+    application:set_env(erl_migrate, verbose, false),
     %% 2. Runs `GMC` migrations
     case lists:member(gmc, Apps) of
         true -> ok = gmc_db_setup:init_migrations();
