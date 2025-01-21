@@ -50,6 +50,7 @@ do(State) ->
     end,
     bsh_global_data:ensure_advance_logging_record(),
     bsh_sysmon:init_cache(),
+    io:format("Eunit: Pre setup done......~n"),
     {ok, State}.
 
 -spec format_error(any()) ->  iolist().
